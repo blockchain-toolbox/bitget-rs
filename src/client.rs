@@ -1,20 +1,20 @@
 //! Bitget HTTP 客户端实现
-//! 
+//!
 //! 该模块提供了与 Bitget 交易所 API 交互的核心客户端实现
 //! 负责处理 API 请求、签名验证和错误处理
 
-use std::collections::BTreeMap;
-use std::str::FromStr;
 use anyhow::{Result, anyhow};
 use reqwest::blocking::{Client, Response};
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+use std::collections::BTreeMap;
+use std::str::FromStr;
 use tracing::{debug, error};
 
 use crate::consts;
 use crate::utils;
 
 /// Bitget 交易所客户端
-/// 
+///
 /// 提供与 Bitget API 交互的核心功能，包括请求签名、发送请求等
 #[derive(Debug, Clone)]
 pub struct BitgetClient {
@@ -103,19 +103,13 @@ impl BitgetClient {
 
         // 4. 发送请求
         let response = match method {
-            consts::GET => {
-                self.http_client
-                    .get(&url)
-                    .headers(headers)
-                    .send()?
-            }
-            consts::POST => {
-                self.http_client
-                    .post(&url)
-                    .headers(headers)
-                    .body(body.unwrap())
-                    .send()?
-            }
+            consts::GET => self.http_client.get(&url).headers(headers).send()?,
+            consts::POST => self
+                .http_client
+                .post(&url)
+                .headers(headers)
+                .body(body.unwrap())
+                .send()?,
             _ => return Err(anyhow!("不支持的 HTTP 方法: {}", method)),
         };
 
@@ -130,7 +124,12 @@ impl BitgetClient {
         Ok(text)
     }
 
-    fn build_headers(&self, method: &str, full_path: &str, params: &BTreeMap<String, String>) -> Result<HeaderMap> {
+    fn build_headers(
+        &self,
+        method: &str,
+        full_path: &str,
+        params: &BTreeMap<String, String>,
+    ) -> Result<HeaderMap> {
         let timestamp = if self.use_server_time {
             // TODO: 实现获取服务器时间接口
             utils::get_timestamp()
@@ -149,7 +148,7 @@ impl BitgetClient {
             "RSA" => {
                 // TODO: 实现 RSA 签名
                 return Err(anyhow!("RSA 签名暂未实现"));
-            },
+            }
             _ => utils::sign(&pre_hash, &self.api_secret_key)?,
         };
 

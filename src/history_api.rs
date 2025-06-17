@@ -1,9 +1,9 @@
 //! Bitget 历史成交相关接口
 //! 示例：GET /api/mix/v1/order/fills
-use std::collections::BTreeMap;
 use crate::client::BitgetClient;
 use anyhow::Result;
 use serde::Deserialize;
+use std::collections::BTreeMap;
 use tracing::info;
 
 #[derive(Debug, Deserialize)]

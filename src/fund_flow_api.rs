@@ -1,7 +1,7 @@
 //! Bitget 资金流水、特殊划转等接口
 use crate::client::BitgetClient;
 use anyhow::Result;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use tracing::info;
 
 #[derive(Debug, Serialize)]

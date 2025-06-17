@@ -24,7 +24,10 @@ pub struct TransferResp {
 impl BitgetClient {
     /// 资金划转
     pub fn transfer(&self, req: &TransferReq) -> Result<String> {
-        info!("资金划转 from={}, to={}, coin={}", req.from_type, req.to_type, req.coin);
+        info!(
+            "资金划转 from={}, to={}, coin={}",
+            req.from_type, req.to_type, req.coin
+        );
         let mut params = BTreeMap::new();
         params.insert("fromType".to_string(), req.from_type.clone());
         params.insert("toType".to_string(), req.to_type.clone());

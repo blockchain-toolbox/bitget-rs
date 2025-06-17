@@ -2,8 +2,8 @@
 //!
 //! 该模块定义了 Bitget API 交互过程中的特定异常类型
 
-use std::fmt;
 use serde::{Deserialize, Serialize};
+use std::fmt;
 
 /// Bitget API 响应错误结构
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -19,7 +19,11 @@ pub struct BitgetApiError {
 
 impl fmt::Display for BitgetApiError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Bitget API 错误 - 代码: {}, 消息: {}", self.code, self.msg)
+        write!(
+            f,
+            "Bitget API 错误 - 代码: {}, 消息: {}",
+            self.code, self.msg
+        )
     }
 }
 
@@ -39,10 +43,12 @@ pub fn parse_error_response(response_text: &str) -> Option<BitgetApiError> {
             if let (Some(code), Some(msg)) = (value.get("code"), value.get("msg")) {
                 // 检查是否为错误响应
                 if code.as_str().map_or(false, |c| c != "00000") {
-                    let request_id = value.get("requestId")
+                    let request_id = value
+                        .get("requestId")
                         .and_then(|id| id.as_str())
-                        .unwrap_or("").to_string();
-                    
+                        .unwrap_or("")
+                        .to_string();
+
                     return Some(BitgetApiError {
                         code: code.as_str().unwrap_or("").to_string(),
                         msg: msg.as_str().unwrap_or("").to_string(),
@@ -51,7 +57,7 @@ pub fn parse_error_response(response_text: &str) -> Option<BitgetApiError> {
                 }
             }
             None
-        },
+        }
         Err(_) => None,
     }
 }
