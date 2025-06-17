@@ -1,10 +1,10 @@
 [package]
 name = "bitget_sdk"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "Bitget Exchange API SDK for Rust"
 license = "MIT"
-authors = ["Your Name <your.email@example.com>"]
+authors = ["hi <victor@telegraphs.org>"]
 repository = "https://github.com/blockchain-toolbox/bitget-rs"
 keywords = ["bitget", "crypto", "exchange", "api", "sdk"]
 categories = ["api-bindings", "cryptography"]

@@ -4,7 +4,6 @@ use crate::client::BitgetClient;
 use anyhow::Result;
 use serde::Deserialize;
 use std::collections::BTreeMap;
-use tracing::info;
 
 /// 资产信息响应结构体（可根据实际返回补充字段）
 #[derive(Debug, Deserialize)]

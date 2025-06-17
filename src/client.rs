@@ -4,11 +4,10 @@
 //! 负责处理 API 请求、签名验证和错误处理
 
 use anyhow::{Result, anyhow};
-use reqwest::blocking::{Client, Response};
+use reqwest::blocking::Client;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
 use std::collections::BTreeMap;
 use std::str::FromStr;
-use tracing::{debug, error};
 
 use crate::consts;
 use crate::utils;

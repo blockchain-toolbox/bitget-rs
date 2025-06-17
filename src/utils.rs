@@ -5,7 +5,7 @@
 
 use anyhow::{Result, anyhow};
 use base64::{Engine as _, engine::general_purpose};
-use chrono::{DateTime, Utc};
+use chrono::Utc;
 use hmac::{Hmac, Mac};
 use sha2::Sha256;
 use std::collections::BTreeMap;

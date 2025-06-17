@@ -1,21 +1,16 @@
 //! Bitget WebSocket API
 //! Bitget WebSocket 行情与推送模块
 
-use anyhow::{Result, anyhow};
-use futures_util::{SinkExt, StreamExt};
-use serde::{Deserialize, Serialize};
+use anyhow::Result;
+use futures_util::SinkExt;
 use std::collections::HashSet;
 use std::fmt::Debug;
 use std::sync::Arc;
-use std::time::{SystemTime, UNIX_EPOCH};
 use tokio::net::TcpStream;
 use tokio::sync::Mutex;
 use tokio_tungstenite::connect_async;
-use tokio_tungstenite::tungstenite;
 use tokio_tungstenite::tungstenite::Message as WsMessage;
-use tokio_tungstenite::tungstenite::protocol::Message;
 use tokio_tungstenite::{MaybeTlsStream, WebSocketStream};
-use tracing::{debug, error, info};
 
 #[derive(Debug)]
 pub struct BitgetWebSocketClient {

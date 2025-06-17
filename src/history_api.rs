@@ -4,7 +4,6 @@ use crate::client::BitgetClient;
 use anyhow::Result;
 use serde::Deserialize;
 use std::collections::BTreeMap;
-use tracing::info;
 
 #[derive(Debug, Deserialize)]
 pub struct FillResp {
